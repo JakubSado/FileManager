@@ -1,0 +1,33 @@
+<style>
+    table,
+    td,
+    th {
+        border: 1px solid;
+        padding: 1px 10px;
+    }
+</style>
+{{>header}}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>path</th>
+        <th>size</th>
+        <th>lastModifiedDate</th>
+        <th>type</th>
+        <th>actions</th>
+        <th>download</th>
+    </tr>
+    {{#each files}}
+    <tr>
+        <td>{{id}}</td>
+        <td><a href="/info/{{id}}">{{name}}</a></td>
+        <td>{{path}}</td>
+        <td>{{size}}</td>
+        <td>{{lastModifiedDate}}</td>
+        <td>{{type}}</td>
+        <td><a href="/delete/{{id}}">X</a></td>
+        <td><a href="/download/:id">download</a></td>
+    </tr>
+    {{/each}}
+</table>

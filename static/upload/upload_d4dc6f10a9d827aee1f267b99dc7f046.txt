@@ -1,0 +1,52 @@
+#!/bin/bash
+
+rm result.txt 2>/dev/null
+touch temp 2>/dev/null
+
+dialog --title "Ankieta" --msgbox "Witaj w ankiecie\n\n Naciśnij OK aby kontynuować" 0 0
+dialog --title "Ankieta" --inputbox "Podaj swoje imię" 0 0 2>>result.txt
+
+echo -n " " >>result.txt
+
+dialog --title "Ankieta" --inputbox "Podaj swoje nazwisko" 0 0 2>>result.txt
+
+echo -n -e "\nSłabe hasło: " >>result.txt
+
+dialog --title "Ankieta" --passwordbox "Jakie twoim zdaniem jest najsłabsze hasło?" 0 0 2>>result.txt
+
+echo -n -e "\nLubisz Billa Gatesa? " >>result.txt
+
+dialog --title "Ankieta" --yesno "Czy lubisz Billa Gatesa?" 0 0
+case $? in
+	"0") echo "Tak" >>result.txt ;;
+	"1") echo "Nie" >>result.txt ;;
+esac
+
+echo -n -e "Gdy masz napisać skrypt w bashu: " >>result.txt
+
+dialog --title "Ankieta" --menu "Twój pracodawca każe ci napisać skrypt w bashu. Co robisz?" 0 0 3 1 "Składam wypowiedzenie" 2 "Uciekam" 3 "Udaję że nie słyszałem" 2>temp
+case `cat temp` in
+	"1") echo "Składasz wypowiedzenie" >>result.txt ;;
+	"2") echo "Uciekasz" >>result.txt ;;
+	"3") echo "Udajesz że nie słyszysz" >>result.txt ;;
+esac
+
+echo -n "Twoje atrybuty: " >>result.txt
+
+dialog --title "Ankieta" --checklist "Gdybyś był bogiem jakie byłyby twoje atrybuty?" 0 0 4 1 "Miecz" off 2 "Tarcza" off 3 "Maczuga" off 4 "Maseczka chirurgiczna" on 2>temp
+cat temp |sed 's/1/Miecz/g' |sed 's/2/Tarcza/g' |sed 's/3/Maczuga/g' |sed 's/4/Maseczka chirurgiczna/g' >>result.txt
+
+echo -e -n "\nJakim byłbyś protokołem? " >>result.txt
+
+dialog --title "Ankieta" --radiolist "Gdybyś był protokołem to jakim?" 0 0 3 1 "HTTP" on 2 "DHCP" off 3 "DNS" off 2>temp
+cat temp |sed 's/1/HTTP/g' |sed 's/2/DHCP/g' |sed 's/3/DNS/g' >>result.txt
+
+echo -e -n "\nUlubiony plik: " >>result.txt
+
+dialog --title "Ankieta" --fselect /etc/passwd 0 0 2>>result.txt
+
+echo -e "\n" >>result.txt
+
+dialog --title "Podsumowanie" --textbox "result.txt" 0 0
+clear
+rm -rf temp

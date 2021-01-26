@@ -1,0 +1,22 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(212, 209, 204);
+}
+.header{
+    height: 60px;
+    width: 100%;
+    background-color: palevioletred;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+    font-size:  30px;
+    word-spacing: 30px;
+}
+.header a:hover {
+    color: rgb(107, 48, 48);
+    transform: scale(1.1);
+}
+.upload{
+ margin-top: 20px;
+}
